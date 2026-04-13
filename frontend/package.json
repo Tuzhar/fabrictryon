@@ -11,8 +11,17 @@
     "start": "react-scripts start",
     "build": "CI=false react-scripts build"
   },
+  "engines": {
+    "node": "18.x",
+    "npm": "9.x"
+  },
   "browserslist": {
-    "production": [">0.2%", "not dead"],
-    "development": ["last 1 chrome version"]
+    "production": [
+      ">0.2%",
+      "not dead"
+    ],
+    "development": [
+      "last 1 chrome version"
+    ]
   }
 }
