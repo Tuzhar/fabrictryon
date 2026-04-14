@@ -40,7 +40,7 @@ async def generate_tryon(
 ):
     replicate_token = os.getenv("REPLICATE_API_TOKEN")
     if not replicate_token:
-        raise HTTPException(status_code=500, detail="REPLICATE_API_TOKEN not set in environment")
+        raise HTTPException(status_code=500, detail="REPLICATE_API_TOKEN not set")
 
     person_bytes = await person_image.read()
     fabric_bytes = await fabric_image.read()
@@ -59,22 +59,22 @@ async def generate_tryon(
     )
 
     person_data_uri = image_to_data_uri(person_bytes, person_image.content_type)
-    fabric_data_uri = image_to_data_uri(fabric_bytes, fabric_image.content_type)
 
     try:
+       
         output = replicate.run(
-    "stability-ai/sdxl",
-    input={
-        "prompt": prompt,
-        "negative_prompt": negative_prompt,
-        "image": person_data_uri,
-        "strength": 0.6,
-        "num_inference_steps": 30,
-        "guidance_scale": 7.5,
-    }
-)
+            "stability-ai/sdxl:da77bc59ee60423279fd632efb4795ab731d9e3ca9705ef3341091fb989b7eaf",
+            input={
+                "prompt": prompt,
+                "negative_prompt": negative_prompt,
+                "image": person_data_uri,
+                "strength": 0.6,
+                "num_inference_steps": 30,
+                "guidance_scale": 7.5,
+            }
+        )
 
-
+        
         if isinstance(output, list) and len(output) > 0:
             image_url = str(output[0])
         else:
@@ -85,6 +85,7 @@ async def generate_tryon(
             img_bytes = img_response.content
 
         result_b64 = base64.b64encode(img_bytes).decode("utf-8")
+
         return JSONResponse({
             "success": True,
             "image_base64": result_b64,
