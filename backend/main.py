@@ -63,17 +63,17 @@ async def generate_tryon(
 
     try:
         output = replicate.run(
-            "stability-ai/stable-diffusion-img2img:15a3689ee13b0d2616e98820eca31d4af4a36396ad15aa6b2bc6c4c3a2f5f7a4",
-            input={
-                "image": person_data_uri,
-                "prompt": prompt,
-                "negative_prompt": negative_prompt,
-                "prompt_strength": 0.6,   # how much to change vs keep original
-                "num_inference_steps": 30,
-                "guidance_scale": 7.5,
-                "scheduler": "K_EULER",
-            }
-        )
+    "stability-ai/sdxl",
+    input={
+        "prompt": prompt,
+        "negative_prompt": negative_prompt,
+        "image": person_data_uri,
+        "strength": 0.6,
+        "num_inference_steps": 30,
+        "guidance_scale": 7.5,
+    }
+)
+
 
         if isinstance(output, list) and len(output) > 0:
             image_url = str(output[0])
