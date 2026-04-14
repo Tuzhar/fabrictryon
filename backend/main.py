@@ -63,14 +63,10 @@ async def generate_tryon(
     try:
        
         output = replicate.run(
-            "stability-ai/sdxl:da77bc59ee60423279fd632efb4795ab731d9e3ca9705ef3341091fb989b7eaf",
+            "stability-ai/sdxl",
             input={
                 "prompt": prompt,
                 "negative_prompt": negative_prompt,
-                "image": person_data_uri,
-                "strength": 0.6,
-                "num_inference_steps": 30,
-                "guidance_scale": 7.5,
             }
         )
 
